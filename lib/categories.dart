@@ -13,10 +13,12 @@ class Categories extends StatelessWidget {
         title: const Text('Recipes'),
       ),
       body: GridView(
+        padding: const EdgeInsets.all(25),
         children: <Widget>[
           ...dummyCategoriesList
               .map((Category category) => CategoryItem(
                   key: ValueKey<String>(category.id),
+                  id: category.id,
                   title: category.title,
                   color: category.color))
               .toList()
