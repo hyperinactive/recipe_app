@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/dummy_data.dart';
 import 'package:recipe_app/models/recipe.dart';
+import 'package:recipe_app/widgets/recipe_item.dart';
 
-class CategoryRecipe extends StatelessWidget {
-  const CategoryRecipe({Key? key}) : super(key: key);
+class RecipesScreen extends StatelessWidget {
+  const RecipesScreen({Key? key}) : super(key: key);
   // static variables can be accessed without an instance
   static const String routeName = '/category-recipe';
 
@@ -28,7 +29,13 @@ class CategoryRecipe extends StatelessWidget {
         appBar: AppBar(title: Text(title)),
         body: ListView.builder(
           itemBuilder: (BuildContext context, int index) {
-            return Text(filteredRecipes[index].title);
+            return RecipeItem(
+              title: filteredRecipes[index].title,
+              imageUrl: filteredRecipes[index].imageUrl,
+              duration: filteredRecipes[index].duration,
+              complexity: filteredRecipes[index].complexity,
+              affordability: filteredRecipes[index].affordability,
+            );
           },
           itemCount: filteredRecipes.length,
         ));

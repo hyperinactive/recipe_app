@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/categories.dart';
-import 'package:recipe_app/category__recipe.dart';
+import 'package:recipe_app/screens/categories_screen.dart';
+import 'package:recipe_app/screens/recipes_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,10 +34,10 @@ class MyApp extends StatelessWidget {
         // '/': (BuildContext context) => Categories(key: UniqueKey()),
         // '/category-recipes': (BuildContext context) => const CategoryRecipe(),
         // use route names instead of route strings
-        Categories.routeName: (BuildContext context) =>
-            Categories(key: UniqueKey()),
-        CategoryRecipe.routeName: (BuildContext context) =>
-            const CategoryRecipe(),
+        CategoriesScreen.routeName: (BuildContext context) =>
+            CategoriesScreen(key: UniqueKey()),
+        RecipesScreen.routeName: (BuildContext context) =>
+            const RecipesScreen(),
       },
     );
   }

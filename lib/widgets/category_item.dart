@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/category__recipe.dart';
+import 'package:recipe_app/screens/recipes_screen.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem(
@@ -28,7 +28,7 @@ class CategoryItem extends StatelessWidget {
 
     // push just like web dev routes
     Navigator.of(context).pushNamed(
-      CategoryRecipe.routeName,
+      RecipesScreen.routeName,
       // TODO(annotation): <Object> no good here?
       arguments: <String, String>{'id': id, 'title': title},
     );

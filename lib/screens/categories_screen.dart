@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/category_item.dart';
+import 'package:recipe_app/widgets/category_item.dart';
 import 'package:recipe_app/dummy_data.dart';
 import 'package:recipe_app/models/category.dart';
 
-class Categories extends StatelessWidget {
-  const Categories({Key? key}) : super(key: key);
+class CategoriesScreen extends StatelessWidget {
+  const CategoriesScreen({Key? key}) : super(key: key);
   static const String routeName = '/';
 
   @override

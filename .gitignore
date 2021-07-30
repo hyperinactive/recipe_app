@@ -9,6 +9,9 @@
 .history
 .svn/
 
+# linting
+analysis_options.yaml
+
 # IntelliJ related
 *.iml
 *.ipr
