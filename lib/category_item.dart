@@ -16,14 +16,22 @@ class CategoryItem extends StatelessWidget {
     // needs PageRoute class
     // _ => context (which isn't needed here)
     // auto adds a "<-" button in the app bar
-    Navigator.of(context).push(MaterialPageRoute<void>(
-      builder: (_) {
-        return CategoryRecipe(
-          id: id,
-          title: title,
-        );
-      },
-    ));
+    // Navigator.of(context).push(MaterialPageRoute<void>(
+    //   builder: (_) {
+    //     return CategoryRecipe(
+    //       id: id,
+    //       title: title,
+    //     );
+    //   },
+    // ));
+    // ------------------------------------------------------------
+
+    // push just like web dev routes
+    Navigator.of(context).pushNamed(
+      CategoryRecipe.routeName,
+      // TODO(annotation): <Object> no good here?
+      arguments: <String, String>{'id': id, 'title': title},
+    );
   }
 
   @override

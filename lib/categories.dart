@@ -5,6 +5,7 @@ import 'package:recipe_app/models/category.dart';
 
 class Categories extends StatelessWidget {
   const Categories({Key? key}) : super(key: key);
+  static const String routeName = '/';
 
   @override
   Widget build(BuildContext context) {
