@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/screens/categories_screen.dart';
+import 'package:recipe_app/screens/recipe_details_screen.dart';
 import 'package:recipe_app/screens/recipes_screen.dart';
 
 void main() {
@@ -38,6 +39,25 @@ class MyApp extends StatelessWidget {
             CategoriesScreen(key: UniqueKey()),
         RecipesScreen.routeName: (BuildContext context) =>
             const RecipesScreen(),
+        RecipeDetailsScreen.routeName: (BuildContext context) =>
+            const RecipeDetailsScreen(),
+      },
+      // During normal app operation, the [onGenerateRoute] callback will only
+      // be applied to route names pushed by the application, and so should never return null.
+      // This is used if [routes] does not contain the requested route.
+      onGenerateRoute: (RouteSettings settings) {
+        print(settings);
+        // can loop up route name, arguments... from the settings
+        // return MaterialPageRoutes based on these
+        // used for dynamic routing
+        return MaterialPageRoute<void>(
+            builder: (BuildContext context) => const CategoriesScreen());
+      },
+      // 404
+      // when onGenerateRoute isn't defined it will fire off
+      onUnknownRoute: (RouteSettings settings) {
+        return MaterialPageRoute<void>(
+            builder: (BuildContext context) => const CategoriesScreen());
       },
     );
   }

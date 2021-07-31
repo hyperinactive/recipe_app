@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/models/recipe.dart';
+import 'package:recipe_app/screens/recipe_details_screen.dart';
+import 'package:recipe_app/widgets/recipe_item_info.dart';
 
 class RecipeItem extends StatelessWidget {
   const RecipeItem({
     Key? key,
+    required this.id,
     required this.title,
     required this.imageUrl,
     required this.duration,
@@ -11,13 +14,17 @@ class RecipeItem extends StatelessWidget {
     required this.affordability,
   }) : super(key: key);
 
+  final String id;
   final String title;
   final String imageUrl;
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
 
-  void selectRecipe() {}
+  void selectRecipe(BuildContext context) {
+    Navigator.of(context)
+        .pushNamed(RecipeDetailsScreen.routeName, arguments: id);
+  }
 
   String get getComplexity {
     switch (complexity) {
@@ -50,7 +57,7 @@ class RecipeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: selectRecipe,
+      onTap: () => selectRecipe(context),
       child: Card(
         // check type required!!!
         // shape requires classes ShapeBorder
@@ -111,39 +118,11 @@ class RecipeItem extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        const Icon(
-                          Icons.schedule,
-                        ),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Text('$duration minutes'),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        const Icon(
-                          Icons.work,
-                        ),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Text(getComplexity),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        const Icon(
-                          Icons.attach_money,
-                        ),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Text(getAffordability),
-                      ],
-                    ),
+                    RecipeItemInfo(
+                        icon: Icons.schedule, text: '$duration minutes'),
+                    RecipeItemInfo(icon: Icons.work, text: getComplexity),
+                    RecipeItemInfo(
+                        icon: Icons.attach_money, text: getAffordability),
                   ],
                 )),
           ],
