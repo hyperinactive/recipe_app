@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/screens/categories_screen.dart';
+import 'package:recipe_app/screens/filters_screen.dart';
 import 'package:recipe_app/screens/recipe_details_screen.dart';
 import 'package:recipe_app/screens/recipes_screen.dart';
+import 'package:recipe_app/screens/tabs_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,12 +37,15 @@ class MyApp extends StatelessWidget {
         // '/': (BuildContext context) => Categories(key: UniqueKey()),
         // '/category-recipes': (BuildContext context) => const CategoryRecipe(),
         // use route names instead of route strings
+        TabsScreen.routeName: (BuildContext context) =>
+            TabsScreen(key: UniqueKey()),
         CategoriesScreen.routeName: (BuildContext context) =>
             CategoriesScreen(key: UniqueKey()),
         RecipesScreen.routeName: (BuildContext context) =>
             const RecipesScreen(),
         RecipeDetailsScreen.routeName: (BuildContext context) =>
             const RecipeDetailsScreen(),
+        FiltersScreen.routeName: (BuildContext context) => const FiltersScreen()
       },
       // During normal app operation, the [onGenerateRoute] callback will only
       // be applied to route names pushed by the application, and so should never return null.
