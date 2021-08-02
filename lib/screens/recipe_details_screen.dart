@@ -77,6 +77,14 @@ class RecipeDetailsScreen extends StatelessWidget {
           ))
         ],
       )),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.delete),
+        onPressed: () {
+          // return to the previous screen
+          // can also pass data through the pop method
+          Navigator.of(context).pop(recipeId);
+        },
+      ),
     );
   }
 }

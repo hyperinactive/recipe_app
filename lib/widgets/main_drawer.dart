@@ -45,10 +45,12 @@ class MainDrawer extends StatelessWidget {
             height: 20,
           ),
           buildListTile(Icons.restaurant, 'Recipes', () {
-            Navigator.of(context).pushNamed('/');
+            Navigator.of(context).pushReplacementNamed('/');
           }),
+          // to avoid potentially infinite stack of pages being created (with no possibility of returning)
+          // replace instead of pushing
           buildListTile(Icons.settings, 'Filters', () {
-            Navigator.of(context).pushNamed('/filters');
+            Navigator.of(context).pushReplacementNamed('/filters');
           }),
         ],
       ),

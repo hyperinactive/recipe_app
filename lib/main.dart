@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/dummy_data.dart';
+import 'package:recipe_app/models/recipe.dart';
 import 'package:recipe_app/screens/categories_screen.dart';
 import 'package:recipe_app/screens/filters_screen.dart';
 import 'package:recipe_app/screens/recipe_details_screen.dart';
@@ -9,8 +11,51 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Map<String, bool> _filters = <String, bool>{
+    'gluten': false,
+    'lactose': false,
+    'vegetarian': false,
+    'vegan': false
+  };
+
+  List<Recipe> _availableRecipes = dummyRecipes;
+
+  void _setFilters(Map<String, bool> filterData) {
+    setState(() {
+      _filters = filterData;
+      _availableRecipes = dummyRecipes.where((Recipe element) {
+        if (_filters['gluten'] != null &&
+            _filters['gluten'] == true &&
+            !element.isGlutenFree) {
+          return false;
+        }
+        if (_filters['lactose'] != null &&
+            _filters['lactose'] == true &&
+            !element.isLactoseFree) {
+          return false;
+        }
+        if (_filters['vegetarian'] != null &&
+            _filters['vegetarian'] == true &&
+            !element.isVegetarian) {
+          return false;
+        }
+        if (_filters['vegan'] != null &&
+            _filters['vegan'] == true &&
+            !element.isVegan) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +86,15 @@ class MyApp extends StatelessWidget {
             TabsScreen(key: UniqueKey()),
         CategoriesScreen.routeName: (BuildContext context) =>
             CategoriesScreen(key: UniqueKey()),
-        RecipesScreen.routeName: (BuildContext context) =>
-            const RecipesScreen(),
+        RecipesScreen.routeName: (BuildContext context) => RecipesScreen(
+              availableRecipes: _availableRecipes,
+            ),
         RecipeDetailsScreen.routeName: (BuildContext context) =>
             const RecipeDetailsScreen(),
-        FiltersScreen.routeName: (BuildContext context) => const FiltersScreen()
+        FiltersScreen.routeName: (BuildContext context) => FiltersScreen(
+              saveFilters: _setFilters,
+              currentFilters: _filters,
+            )
       },
       // During normal app operation, the [onGenerateRoute] callback will only
       // be applied to route names pushed by the application, and so should never return null.
