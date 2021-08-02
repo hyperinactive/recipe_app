@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/models/recipe.dart';
 import 'package:recipe_app/screens/categories_screen.dart';
 import 'package:recipe_app/screens/favorites_screen.dart';
 
@@ -33,7 +34,9 @@ class TabsDTCScreen extends StatelessWidget {
               // each tab corresponds with the child and its intex
               children: <Widget>[
                 CategoriesScreen(),
-                FavoritesScreen(),
+                FavoritesScreen(
+                  favoriteRecipes: <Recipe>[],
+                ),
               ],
             )));
   }

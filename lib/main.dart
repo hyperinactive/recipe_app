@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   };
 
   List<Recipe> _availableRecipes = dummyRecipes;
+  List<Recipe> _favoriteRecipes = <Recipe>[];
 
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
@@ -57,6 +58,29 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _toggleFavorite(String id) {
+    final int index =
+        _favoriteRecipes.indexWhere((Recipe element) => element.id == id);
+    // if the index of a favorite recipe has been found, remove it
+    if (index >= 0) {
+      setState(() {
+        _favoriteRecipes.removeAt(index);
+      });
+      // else add it to the list
+    } else {
+      setState(() {
+        _favoriteRecipes
+            .add(dummyRecipes.firstWhere((Recipe element) => element.id == id));
+      });
+    }
+  }
+
+  bool _isFavorite(String id) {
+    // any takes a function and runs it through the list
+    // returns true if it finds anything that matches
+    return _favoriteRecipes.any((Recipe element) => element.id == id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -82,15 +106,20 @@ class _MyAppState extends State<MyApp> {
         // '/': (BuildContext context) => Categories(key: UniqueKey()),
         // '/category-recipes': (BuildContext context) => const CategoryRecipe(),
         // use route names instead of route strings
-        TabsScreen.routeName: (BuildContext context) =>
-            TabsScreen(key: UniqueKey()),
+        TabsScreen.routeName: (BuildContext context) => TabsScreen(
+              key: UniqueKey(),
+              favoriteRecipes: _favoriteRecipes,
+            ),
         CategoriesScreen.routeName: (BuildContext context) =>
             CategoriesScreen(key: UniqueKey()),
         RecipesScreen.routeName: (BuildContext context) => RecipesScreen(
               availableRecipes: _availableRecipes,
             ),
         RecipeDetailsScreen.routeName: (BuildContext context) =>
-            const RecipeDetailsScreen(),
+            RecipeDetailsScreen(
+              toggleFavorite: _toggleFavorite,
+              isFavorite: _isFavorite,
+            ),
         FiltersScreen.routeName: (BuildContext context) => FiltersScreen(
               saveFilters: _setFilters,
               currentFilters: _filters,

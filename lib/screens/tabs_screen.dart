@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/models/recipe.dart';
 import 'package:recipe_app/screens/categories_screen.dart';
 import 'package:recipe_app/screens/favorites_screen.dart';
 import 'package:recipe_app/widgets/main_drawer.dart';
@@ -6,8 +7,9 @@ import 'package:recipe_app/widgets/main_drawer.dart';
 // tabs on the bottom
 // tabs require the whole screen to work
 class TabsScreen extends StatefulWidget {
-  const TabsScreen({Key? key}) : super(key: key);
+  const TabsScreen({Key? key, required this.favoriteRecipes}) : super(key: key);
   static const String routeName = '/';
+  final List<Recipe> favoriteRecipes;
 
   @override
   _TabsScreenState createState() => _TabsScreenState();
@@ -15,12 +17,23 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   // list of screens to show
-  final List<Map<String, dynamic>> _tabScreens = <Map<String, dynamic>>[
-    <String, dynamic>{'title': 'Recipes', 'screen': const CategoriesScreen()},
-    <String, dynamic>{'title': 'Favorites', 'screen': const FavoritesScreen()},
-  ];
-
+  late List<Map<String, dynamic>> _tabScreens;
   int _selectedTabIndex = 0;
+
+  // widget property can be only used in the build method or initState
+  @override
+  void initState() {
+    _tabScreens = <Map<String, dynamic>>[
+      <String, dynamic>{'title': 'Recipes', 'screen': const CategoriesScreen()},
+      <String, dynamic>{
+        'title': 'Favorites',
+        'screen': FavoritesScreen(
+          favoriteRecipes: widget.favoriteRecipes,
+        )
+      },
+    ];
+    super.initState();
+  }
 
   // remember, private class, private functions
   // flutter will automatically give the index of the selcted tab when selected

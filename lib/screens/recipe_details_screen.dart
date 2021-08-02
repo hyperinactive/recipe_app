@@ -3,8 +3,12 @@ import 'package:recipe_app/dummy_data.dart';
 import 'package:recipe_app/models/recipe.dart';
 
 class RecipeDetailsScreen extends StatelessWidget {
-  const RecipeDetailsScreen({Key? key}) : super(key: key);
+  const RecipeDetailsScreen(
+      {Key? key, required this.toggleFavorite, required this.isFavorite})
+      : super(key: key);
   static const String routeName = '/recipe-details';
+  final Function toggleFavorite;
+  final Function isFavorite;
 
   // builder methods are fine
   // alternatively, a new file with a widget can be created
@@ -78,12 +82,14 @@ class RecipeDetailsScreen extends StatelessWidget {
         ],
       )),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.delete),
-        onPressed: () {
-          // return to the previous screen
-          // can also pass data through the pop method
-          Navigator.of(context).pop(recipeId);
-        },
+        child:
+            Icon(isFavorite(recipeId) as bool ? Icons.star : Icons.star_border),
+        // onPressed: () {
+        //   // return to the previous screen
+        //   // can also pass data through the pop method
+        //   Navigator.of(context).pop(recipeId);
+        // },
+        onPressed: () => toggleFavorite(recipeId),
       ),
     );
   }

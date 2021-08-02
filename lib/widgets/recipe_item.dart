@@ -12,7 +12,7 @@ class RecipeItem extends StatelessWidget {
     required this.duration,
     required this.complexity,
     required this.affordability,
-    required this.removeItem,
+    this.removeItem,
   }) : super(key: key);
 
   final String id;
@@ -21,7 +21,7 @@ class RecipeItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
-  final Function removeItem;
+  final Function? removeItem;
 
   void selectRecipe(BuildContext context) {
     // returns a Future === Promise and is thenable
@@ -30,9 +30,9 @@ class RecipeItem extends StatelessWidget {
         // actually is called only when the page has been popped off the stack
         // in the result I expect the id of the recipe the floating button passes if tapped
         .then((Object? result) {
-      if (result != null) {
-        removeItem(result);
-      }
+      // if (result != null) {
+      //   removeItem(result);
+      // }
       print(result);
     });
   }
